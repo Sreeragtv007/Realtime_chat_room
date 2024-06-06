@@ -35,6 +35,7 @@
         <div class="chat-container col-md-9">
           <div class="chat-header" >
             <div id="data-container" data-my-data="{{ room.name|escapejs }}"></div>
+            <div id="user" data-my-data="{{ request.user|escapejs }}"></div>
 
               {{room.name}}
           </div>
@@ -68,7 +69,9 @@
 
       const dataContainer = document.getElementById('data-container');
       const room = dataContainer.getAttribute('data-my-data');
-      console.log(room)
+      const userdiv= document.getElementById('user');
+      user=userdiv.getAttribute('data-my-data')
+      console.log(user)
 
      
       const chatSocket = new WebSocket(`ws://${window.location.host}/${room}/`);
@@ -85,8 +88,9 @@
    chatSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);
     const message = data.message;
+    const user=data.user;
     
-    setMessage(message);
+    setMessage(message,user);
 };
 
 
@@ -96,7 +100,8 @@
       const message = messageInputDom.value;
 
       chatSocket.send(JSON.stringify({
-          'message': message
+          'message': message,
+          'user':user
       }));
       
       messageInputDom.value = '';
@@ -115,11 +120,18 @@
       const button = document.querySelector('.chat-input button');
       const chatMessages = document.querySelector('.chat-messages');
 
-      function setMessage(message) {
-          if (message) {
+      function setMessage(message,user) {
+          if (message,user) {
               const messageElement = document.createElement('div');
-              messageElement.classList.add('message', 'user');
+            
+              messageElement.classList.add('message','user');
               messageElement.textContent = message;
+              const userelement=document.createElement('div')
+              userelement.classList.add('request-user')
+              userelement.textContent = user;
+              messageElement.appendChild(userelement);
+
+              
               chatMessages.appendChild(messageElement);
               input.value = '';
               chatMessages.scrollTop = chatMessages.scrollHeight;

@@ -73,6 +73,10 @@ input{
     overflow-y: auto;
 }
 
+
+
+
+
 .message {
     margin-bottom: 20px;
     padding: 10px;
@@ -81,9 +85,21 @@ input{
     word-wrap: break-word;
 }
 
+
+
 .message.user {
-    background: #dcf8c6;
+    background: #8dce37;
     align-self: flex-end;
+}
+.request-user{
+
+    background: #8dce37;
+    
+    overflow: hidden;
+    text-align: end;
+    text-shadow: #dcf8c6;
+    
+
 }
 
 /* .message.bot {
