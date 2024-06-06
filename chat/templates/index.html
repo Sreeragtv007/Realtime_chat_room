@@ -21,7 +21,7 @@
             
        
           <div>
-            <a href=""><div class=" d-flex room-name">
+            <a href="{% url 'room' i.id %}"><div class=" d-flex room-name">
               <img src="./avatar4.png" alt="" class="room-img">
               <h4 id="data-container" data-my-data="{{ i.name|escapejs }}">{{i.name}}</h4>
               <h6 class="m-2">online</h6>
@@ -34,16 +34,9 @@
         </div>
         <div class="chat-container col-md-9">
           <div class="chat-header">
-              Chat with Us
+              join a room to chat
           </div>
-          <div class="chat-messages">
-              <div class="message user">Hello, how can I help you?</div>
-              <!-- More messages here -->
-          </div>
-          <div class="chat-input">
-              <input type="text" placeholder="Type a message...">
-              <button>Send</button>
-          </div>
+          
       </div>
       </div>
     </div>
@@ -62,50 +55,6 @@
 
 
 
-    <script>
-
-      const dataContainer = document.getElementById('data-container');
-      const room = dataContainer.getAttribute('data-my-data');
-      console.log(room)
-
-     
-      const chatSocket = new WebSocket(`ws://${window.location.host}/${room}/`);
-
-      chatSocket.onopen=function(e){
-        console.log("connected")
-      }
-
-
-
-
-
-
-
-
-
-
-      // Simple JavaScript to handle sending messages
-      const input = document.querySelector('.chat-input input');
-      const button = document.querySelector('.chat-input button');
-      const chatMessages = document.querySelector('.chat-messages');
-
-      button.addEventListener('click', () => {
-          const message = input.value.trim();
-          if (message) {
-              const messageElement = document.createElement('div');
-              messageElement.classList.add('message', 'user');
-              messageElement.textContent = message;
-              chatMessages.appendChild(messageElement);
-              input.value = '';
-              chatMessages.scrollTop = chatMessages.scrollHeight;
-          }
-      });
-
-      input.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-              button.click();
-          }
-      });
-  </script>
+   
   </body>
 </html>
