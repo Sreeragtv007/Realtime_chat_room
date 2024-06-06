@@ -43,8 +43,8 @@
               <!-- More messages here -->
           </div>
           <div class="chat-input">
-              <input type="text" placeholder="Type a message...">
-              <button>Send</button>
+              <input type="text" id="textMessage" placeholder="Type a message...">
+              <button id="addMessage" >Send</button>
           </div>
       </div>
       </div>
@@ -81,6 +81,27 @@
       console.log('Chat socket closed unexpectedly');
   };
 
+   // on receiving message on group
+   chatSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    const message = data.message;
+    
+    setMessage(message);
+};
+
+
+    // sending the text message to server
+    document.querySelector('#addMessage').onclick= function(e) {
+      const messageInputDom = document.querySelector('#textMessage');
+      const message = messageInputDom.value;
+
+      chatSocket.send(JSON.stringify({
+          'message': message
+      }));
+      
+      messageInputDom.value = '';
+};
+
 
 
 
@@ -94,8 +115,7 @@
       const button = document.querySelector('.chat-input button');
       const chatMessages = document.querySelector('.chat-messages');
 
-      button.addEventListener('click', () => {
-          const message = input.value.trim();
+      function setMessage(message) {
           if (message) {
               const messageElement = document.createElement('div');
               messageElement.classList.add('message', 'user');
@@ -104,13 +124,10 @@
               input.value = '';
               chatMessages.scrollTop = chatMessages.scrollHeight;
           }
-      });
+      };
 
-      input.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-              button.click();
-          }
-      });
+
+     
   </script>
   </body>
 </html>
