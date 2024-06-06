@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,7 +69,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chatapp.wsgi.application'
+# WSGI_APPLICATION = 'chatapp.wsgi.application'
+ASGI_APPLICATION = 'chatapp.asgi.application'
+
+
+# 👇 5. Add the below line for channel layer
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 # Database

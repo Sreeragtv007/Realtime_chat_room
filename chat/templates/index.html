@@ -17,14 +17,18 @@
             <button class="serach-btn">search</button>
           </div>
           <hr>
-          
+          {% for i in room  %}
+            
+       
           <div>
             <a href=""><div class=" d-flex room-name">
               <img src="./avatar4.png" alt="" class="room-img">
-              <h4>cricket</h4>
+              <h4 id="data-container" data-my-data="{{ i.name|escapejs }}">{{i.name}}</h4>
               <h6 class="m-2">online</h6>
             </div></a>
           </div>
+
+          {% endfor %}
           <hr>
 
         </div>
@@ -59,6 +63,27 @@
 
 
     <script>
+
+      const dataContainer = document.getElementById('data-container');
+      const room = dataContainer.getAttribute('data-my-data');
+      console.log(room)
+
+     
+      const chatSocket = new WebSocket(`ws://${window.location.host}/${room}/`);
+
+      chatSocket.onopen=function(e){
+        console.log("connected")
+      }
+
+
+
+
+
+
+
+
+
+
       // Simple JavaScript to handle sending messages
       const input = document.querySelector('.chat-input input');
       const button = document.querySelector('.chat-input button');
