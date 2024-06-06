@@ -23,6 +23,7 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         json_text = json.loads(text_data)
         user=json_text['user']
+        time=json_text['time']
         
         message = json_text["message"]
         
@@ -32,15 +33,16 @@ class ChatConsumer(WebsocketConsumer):
             {
                 "type": "chat_message", 
                 "message": message,
-                'user':user
+                'user':user,
+                'time':time
             }
         )
     
     def chat_message(self, event):
         message = event['message']
         user=event['user']
-        print(event['type'])
+        time=event['time']
         
         
         # Send message to WebSocket
-        self.send(text_data=json.dumps({"message": message,'user':user}))
+        self.send(text_data=json.dumps({"message": message,'user':user,'time':time}))
