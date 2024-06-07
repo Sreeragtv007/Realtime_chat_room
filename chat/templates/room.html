@@ -11,28 +11,46 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="chat-room col-md-3">
+        <div class="chat-room col-md-2">
           <div class="p-2 m-3">
-            <input type="text" placeholder="search rooms here">
-            <button class="serach-btn">search</button>
+            <input class="search-room" type="text" placeholder="search rooms here">
+            <button class="serach-btn mt-2">search</button>
           </div>
           <hr>
+          
+
+
           {% for i in rooms  %}
             
-       
-          <div>
-            <a href="{% url 'room' i.id %}"><div class=" d-flex room-name">
-              <img src="./avatar4.png" alt="" class="room-img">
-              <h4 >{{i.name}}</h4>
-              <h6 class="m-2">online</h6>
-            </div></a>
+          
+         
+
+          
+          <div  class=" d-flex">
+            <div class="room-img ">
+              <img src="" alt="">
+
+            </div>
+            <div class="d-flex">
+              
+              <div class="room-name m-2"><a class="a-tag" href="{% url 'room' i.id %}"><h4>{{i.name}}</h4> </a></div>
+            
+         
+            </div>
+  
+         
           </div>
 
-          {% endfor %}
+
+   
+       
+
+       {% endfor %}
+        
           <hr>
 
         </div>
-        <div class="chat-container col-md-9">
+        <div class="chat-container col-md-10">
           <div class="chat-header" >
             <div id="data-container" data-my-data="{{ room.name|escapejs }}"></div>
             <div id="user" data-my-data="{{ request.user|escapejs }}"></div>
@@ -40,7 +58,6 @@
               {{room.name}}
           </div>
           <div class="chat-messages">
-              <div class="message user">Hello, how can I help you?</div>
               <!-- More messages here -->
           </div>
           <div class="chat-input">
@@ -71,7 +88,6 @@
       const room = dataContainer.getAttribute('data-my-data');
       const userdiv= document.getElementById('user');
       user=userdiv.getAttribute('data-my-data')
-      console.log(user)
 
      
       const chatSocket = new WebSocket(`ws://${window.location.host}/${room}/`);
@@ -125,7 +141,7 @@
       const chatMessages = document.querySelector('.chat-messages');
 
       function setMessage(message,user,time) {
-          if (message,user) {
+          if (message) {
               const messageElement = document.createElement('div');
               const timeElement = document.createElement('div');
               timeElement.classList.add('time');

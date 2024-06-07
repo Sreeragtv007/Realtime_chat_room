@@ -3,7 +3,7 @@ from .models import *
 # Create your views here.
 def index(request):
     room=Room.objects.all()
-    context={'room':room}
+    context={'rooms':room}
     return render(request,'index.html',context)
 
 def joinRoom(request,pk):
