@@ -159,6 +159,7 @@ input {
 
 a.a-tag {
     text-decoration: none;
+    color: #fff;
 }
 
 .search-room {
@@ -192,4 +193,25 @@ h4.user-msg {
 
 .room-name{
     color: #fff;
+}
+
+.room-card{
+    background-color: #54df67;
+    align-items: center;
+    justify-content: center;
+    margin: 20%;
+
+}
+label{
+    width: 200px;
+    text-align: start;
+}
+
+.create-btn{
+    width: 100px;
+    background-color: #45a049;
+    border-radius: 10px;
+    height: 40px;
+    margin-left: 150px;
+    margin-top: 50px;
 }

@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+
+{% block createroom %}
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12  d-flex"> 
+
+          <div class="room-card m-5 p-5"  >
+            <div class=""><h2>create your own room</h2></div>
+           <form action="{% url 'createroom' %}" method="POST" class=""> {% csrf_token %}
+           <div>
+            <label for="">room name :</label>
+            <input type="text" placeholder="room name" class="m-3" name="roomname"><br>
+           </div>
+           <div>
+            <label for="">room image :</label>
+            
+            <input type="file" name="" id="" class="m-3" name="roomimg"><br>
+           </div>
+            <div>
+                <label for="">room discription :</label>
+            <input class="m-3" type="text" placeholder="room discription" name="roomdisc">
+            </div>
+            <br>
+            <div class="d-flex"><button class="create-btn mt-2 " type="submit">create</button></div>
+           </form>
+              </div>
+
+        </div>
+    </div>
+  </div>
+{% endblock createroom %}

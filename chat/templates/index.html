@@ -30,7 +30,7 @@
           <div>
             <h4><a href="{% url 'index' %}" class="a-tag">home</a>
             </h4>
-            <h4>create room</h4>
+            <a href="{% url 'createroom' %}" class="a-tag"><h4>create room</h4></a>
             <h4>register</h4>
             <h4>login</h4>
             
@@ -44,6 +44,9 @@
 
 
         <div class="d-flex h-30">
+         {% block createroom %}
+           
+         {% endblock createroom %}
           {% for i in rooms  %}
             
          <a class="a-tag" href="{% url 'room' i.id %}">
