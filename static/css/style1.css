@@ -7,8 +7,9 @@
 }
 
 
+
 .chat-room {
-    background: #4CAF50;
+    background:#54df67;
     color: beige;
 
     height: 650px;
@@ -171,4 +172,20 @@ h4.user-msg {
     align-items: center;
     justify-content: center;
 
+}
+
+.card-img{
+    width: 20px;
+    height: 20px;
+}
+
+.navbar-room{
+    background-color: rgb(238, 136, 4);
+}
+
+.nav{
+    background-color: #8dce37;
+}
+.room-card{
+    background-color: #8dce37;
 }
