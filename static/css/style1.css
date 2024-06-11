@@ -160,6 +160,7 @@ input {
 a.a-tag {
     text-decoration: none;
     color: #fff;
+    height: 200px;
 }
 
 .search-room {
@@ -192,7 +193,10 @@ h4.user-msg {
 }
 
 .room-name{
-    color: #fff;
+    color: #de1111;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .room-card{
@@ -214,4 +218,10 @@ label{
     height: 40px;
     margin-left: 150px;
     margin-top: 50px;
+}
+
+
+.side -bar{
+    background-color: aquamarine;
+    color: #de1111;
 }

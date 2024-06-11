@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -25,10 +26,17 @@ def searchRoom(request):
 
 def createRoom(request):
     if request.method == 'POST':
-        room_name=request.POST.get('roomname')
-        room_img=request.POST.get('roomimg')
-        room_disc=request.POST.get('roomdisc')
-        room=Room.objects.create(name=room_name,room_img=room_img,disc=room_disc)   
+        name = request.POST['name']
+        uploaded_file = request.FILES['image']
+        
+        # Save the file to the media directory
+        fs = FileSystemStorage()
+        filename = fs.save(uploaded_file.name, uploaded_file)
+        file_url = fs.url(filename)
+        
+        # Save the file and name to the model
+        my_model_instance = Room(name=name, room_img=filename)
+        my_model_instance.save()
         return redirect('index') 
     else:
         return render(request,'createroom.html')
