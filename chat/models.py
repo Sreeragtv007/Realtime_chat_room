@@ -10,3 +10,8 @@ class Room(models.Model):
     def __str__(self):
         return self.name
     
+class Roommessage(models.Model):
+    message=models.TextField(blank=True, null=True)
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+        
+    

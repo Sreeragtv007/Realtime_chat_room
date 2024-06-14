@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block register %}
+
+<div class="container-fluid">
+    <div class="row d-flex">
+   <form action="" method="POST"> {% csrf_token %}
+    <div class="register card shadow col-md-6  m-5">
+        <h4 class="m-5">register</h4>
+        <div class="m-3">
+            <label for="">user name</label>
+            <input type="text" name="username" id="" placeholder="enter user name">
+        </div>
+        <div class="m-3">
+            <label for="">password</label>
+            <input type="password" name="pass1" id=""  placeholder="enter password">
+        </div>
+        <div class="m-3">
+            <label for="">confirm password</label>
+            <input type="password" name="pass2" id="" placeholder="confirm password">
+        </div>
+
+        <div class="m-3">
+            <button class=" signup-btn m-5 p-2 " type="submit">sign up</button>
+        </div>
+
+    </div>
+   </form>
+    </div>
+</div>
+  
+{% endblock register %}
+

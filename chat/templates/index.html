@@ -31,8 +31,10 @@
             <h4><a href="{% url 'index' %}" class="a-tag">home</a>
             </h4>
             <a href="{% url 'createroom' %}" class="a-tag"><h4>create room</h4></a>
-            <h4>register</h4>
-            <h4>login</h4>
+            <a href="{% url 'register' %}" class="a-tag"><h4>register</h4></a>
+            <a href="{% url 'login' %}" class="a-tag"><h4>login</h4></a>
+
+
             
           </div>
         </div></a>
@@ -47,29 +49,26 @@
          {% block createroom %}
            
          {% endblock createroom %}
+         {% block register %}
+           
+         {% endblock register %}
+
+         {% block login %}
+           
+         {% endblock login %}
           {% for i in rooms  %}
-            
-        <div>
-           <a class="a-tag" href="{% url 'room' i.id %}">
-          <div class="card  shadow m-3">
-            <div class="d-flex">
-              {% if i.room_img %}
-                
-            
-              <img class=" p-3 w-75 h-10" src="{{i.room_img.url}}" alt="">
 
-              {% else %}
-
-              <img class=" p-3 w-75 h-10" src="{% static 'images/default.jpeg' %}" alt="">
-
-
-              {% endif %}
-            
-            </div>
-            <div class="room-name"><h4>{{i.name}}</h4></div>
+         <a class="a-tag" href="{% url 'room' i.id %}"> <div class="card shadow m-4"> 
+          <div class="main-room-img">
+            <img class="" src="{{i.room_img.url}}" alt="">
           </div>
-         </a>
-        </div>
+          <div class="m-3">{{i.name}}</div>
+
+
+
+        </div></a>
+            
+        
           {% endfor %}
 
         </div>

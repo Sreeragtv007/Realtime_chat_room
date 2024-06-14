@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,68 +10,66 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="chat-room col-md-2">
+        <div class="chat-room col-md-3">
           <div class="p-2 m-3">
-            <input class="search-room" type="text" placeholder="search rooms here">
+            <input
+              class="search-room"
+              type="text"
+              placeholder="search rooms here"
+            />
             <button class="serach-btn mt-2">search</button>
           </div>
 
-
           <div class="side-bar d-flex">
-            <h4 class="m-2"><a class="a-tag" href="{% url 'index' %}">home</a></h4>
+            <h4 class="m-2">
+              <a class="a-tag" href="{% url 'index' %}">home</a>
+            </h4>
             <h4 class="m-2">logout</h4>
           </div>
-          <hr>
-         
-          
+          <hr />
 
+          {% for i in rooms %}
 
-          {% for i in rooms  %}
-            
-          
-         
-
-          
-          <div  class=" d-flex">
-            <div class="room-img ">
-              <img class="room-img" src="{{i.room_img.url}}" alt="">
-
+          <div class="d-flex">
+            <div class="room-img">
+              <img class="room-img" src="{{i.room_img.url}}" alt="" />
             </div>
             <div class="d-flex">
-              
-              <div class="room-name m-2"><a class="a-tag" href="{% url 'room' i.id %}"><h4>{{i.name}}</h4> </a></div>
-            
-         
+              <div class="room-name m-2">
+                <a class="a-tag" href="{% url 'room' i.id %}"
+                  ><h4>{{i.name}}</h4>
+                </a>
+              </div>
             </div>
-  
-         
           </div>
 
+          {% endfor %}
 
-   
-       
-
-       {% endfor %}
-        
-          <hr>
-
+          <hr />
         </div>
-        <div class="chat-container col-md-10">
-          <div class="chat-header " >
-            <div id="data-container" data-my-data="{{ room.name|escapejs }}"></div>
+        <div class="chat-container col-md-9">
+          <div class="chat-header">
+            <div
+              id="data-container"
+              data-my-data="{{ room.name|escapejs }}"
+            ></div>
             <div id="user" data-my-data="{{ request.user|escapejs }}"></div>
-            <img class="room-img" src="{{room.room_img.url}}" alt="">
+            <img class="room-img" src="{{room.room_img.url}}" alt="" />
 
-              {{room.name}}
+            {{room.name}}
           </div>
           <div class="chat-messages">
-              <!-- More messages here -->
+            <!-- More messages here -->
           </div>
           <div class="chat-input">
-              <input type="text" id="textMessage" placeholder="Type a message...">
-              <button id="addMessage" >Send</button>
+            <input
+              type="text"
+              id="textMessage"
+              placeholder="Type a message..."
+            />
+            <button id="addMessage"  >Send</button>
           </div>
-      </div>
+        </div>
       </div>
     </div>
 
@@ -88,90 +85,82 @@
       crossorigin="anonymous"
     ></script>
 
-
-
     <script>
+      const dataContainer = document.getElementById("data-container");
+      const room = dataContainer.getAttribute("data-my-data");
+      const userdiv = document.getElementById("user");
+      user = userdiv.getAttribute("data-my-data");
 
-      const dataContainer = document.getElementById('data-container');
-      const room = dataContainer.getAttribute('data-my-data');
-      const userdiv= document.getElementById('user');
-      user=userdiv.getAttribute('data-my-data')
-
-     
       const chatSocket = new WebSocket(`ws://${window.location.host}/${room}/`);
 
-      chatSocket.onopen=function(e){
-        console.log("connected")
-      }
-       // on socket close
-    chatSocket.onclose = function (e) {
-      console.log('Chat socket closed unexpectedly');
-  };
-
-   // on receiving message on group
-   chatSocket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-    const message = data.message;
-    const user=data.user;
-    const time = data.time
-    
-    setMessage(message,user,time);
-};
-
-
-    // sending the text message to server
-    document.querySelector('#addMessage').onclick= function(e) {
-      const messageInputDom = document.querySelector('#textMessage');
-      const message = messageInputDom.value;
-      let time = new Date();
-      console.log(time)
-
-      chatSocket.send(JSON.stringify({
-          'message': message,
-          'user':user,
-          'time':time
-      }));
-      
-      messageInputDom.value = '';
-};
-
-
-
-
-
-
-
-
-
-      // Simple JavaScript to handle sending messages
-      const input = document.querySelector('.chat-input input');
-      const button = document.querySelector('.chat-input button');
-      const chatMessages = document.querySelector('.chat-messages');
-
-      function setMessage(message,user,time) {
-          if (message) {
-              const messageElement = document.createElement('div');
-              const timeElement = document.createElement('div');
-              timeElement.classList.add('time');
-              timeElement.textContent = time;
-            
-              messageElement.classList.add('message','user');
-              messageElement.textContent = message;
-              const userelement=document.createElement('div')
-              userelement.classList.add('request-user')
-              userelement.textContent = user;
-              messageElement.appendChild(userelement);
-
-              
-              chatMessages.appendChild(messageElement);
-              messageElement.appendChild(timeElement)
-              input.value = '';
-              chatMessages.scrollTop = chatMessages.scrollHeight;
-          }
+      chatSocket.onopen = function (e) {
+        console.log("connected");
+      };
+      // on socket close
+      chatSocket.onclose = function (e) {
+        console.log("Chat socket closed unexpectedly");
       };
 
+      // on receiving message on group
+      chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        const message = data.message;
+        const user = data.user;
+        const time = data.time;
 
-     
-  </script>
+        setMessage(message, user, time);
+      };
+      
+    
+  
+      // sending the text message to server
+      document.querySelector("#addMessage").onclick = function clickme(e) {
+        const messageInputDom = document.querySelector("#textMessage");
+        const message = messageInputDom.value;
+        let time = new Date();
+        console.log(time);
+
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+            user: user,
+            time: time,
+          })
+        );
+
+        messageInputDom.value = "";
+      };
+
+      
+
+
+   
+
+      // Simple JavaScript to handle sending messages
+      const input = document.querySelector(".chat-input input");
+      const button = document.querySelector(".chat-input button");
+      const chatMessages = document.querySelector(".chat-messages");
+
+      function setMessage(message, user, time) {
+        if (message) {
+          const messageElement = document.createElement("div");
+          const timeElement = document.createElement("div");
+          timeElement.classList.add("time");
+          timeElement.textContent = time;
+
+          messageElement.classList.add("message", "user");
+          messageElement.textContent = message;
+          const userelement = document.createElement("div");
+          userelement.classList.add("request-user");
+          userelement.textContent = user;
+          messageElement.appendChild(userelement);
+
+          chatMessages.appendChild(messageElement);
+          messageElement.appendChild(timeElement);
+          input.value = "";
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+      }
+    </script>
   </body>
 </html>

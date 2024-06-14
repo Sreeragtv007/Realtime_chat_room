@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 
 }
 
@@ -224,4 +225,21 @@ label{
 .side -bar{
     background-color: aquamarine;
     color: #de1111;
+}
+.main-room-img{
+
+    width: 10%;
+    height: 10%;
+    
+
+}
+button.login-btn{
+    border-radius: 5px;
+    background-color: #54df67;
+    
+}
+
+.signup-btn{
+    background-color: #54df67;
+    border-radius: 10px;
 }
