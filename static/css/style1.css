@@ -233,13 +233,35 @@ label{
     
 
 }
-button.login-btn{
+.login-btn{
     border-radius: 5px;
     background-color: #54df67;
+    
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+
     
 }
 
 .signup-btn{
     background-color: #54df67;
     border-radius: 10px;
+}
+
+.login-main{
+    background-color: #54df67;
+    border-radius: 20px;
+}
+.nav-bar{
+    background-color: #8dce37;
+    height: 80px;
+    width: 100%;
+    padding: 30px;
+   
+    
+}
+.room{
+    width: 200px;
+    height: 200px;
 }
